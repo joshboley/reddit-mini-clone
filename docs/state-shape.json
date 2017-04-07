@@ -6,7 +6,6 @@
                 "title": "string",
                 "body": "string",
                 "link": "string",
-                "postedBy": "string",
                 "totalLikes": "number"
             }
         ]

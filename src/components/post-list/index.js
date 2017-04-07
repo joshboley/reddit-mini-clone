@@ -27,10 +27,7 @@ export default class PostList extends Component {
                 {this.props.posts.map((post) => {
                     return (
                         <ListGroupItem key={post.id}>
-
-                            <Link to={this.props.generateLink(post)}>
-                                <h3>{post.title}</h3>
-                            </Link>
+                            <h3>{post.title}</h3>
                             <span>{post.body}</span>
                             <Like count={post.totalLikes} onLikeClick={e => this.props.onLikeClick(post)} />
                             {post.link && <PostLink link={post.link} />}

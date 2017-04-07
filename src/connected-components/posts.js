@@ -5,11 +5,17 @@ import { Button, Accordion, Panel } from 'react-bootstrap';
 
 import PostList from '../components/post-list';
 import PostForm from '../components/post-form';
-import { addPost, addLike } from '../actions/posts';
+import { watchForPosts, watchForLikes, addPost, addLike } from '../actions/posts';
 
 // The Posts component is a connected component for displaying the new post form
 // as well as the post list.
 class Posts extends React.Component {
+
+    // When the component mounts, set up our watchers for posts and likes
+    componentDidMount () {
+        this.props.watchForPostAdds();
+        this.props.watchForPostLikes();
+    }
 
     render () {
         return (
@@ -19,28 +25,30 @@ class Posts extends React.Component {
                         <PostForm onSubmit={this.props.onSubmit} />
                     </Panel>
                 </Accordion>
-                <PostList posts={this.props.posts.data} generateLink={this.generateLink} onLikeClick={this.props.onLikeClick} />
+                <PostList posts={this.props.posts.data} onLikeClick={post => this.props.onLikeClick(post, this.props.user)} />
             </div>
         );
-    }
-
-    // The function passed to PostList
-    // Builds the link for a single post so that the
-    // PostList component doesn't need to have routing knowledge
-    generateLink (post) {
-        return `/post/${post.id}`;
     }
 }
 
 // Binds posts from state to the component's props
 const mapStateToProps = state => ({
-    posts: state.posts
+    posts: state.posts,
+    user: state.user
 });
 
 // Binds functions to props allowing us to wrap them in a dispatch call.
 const mapDispatchToProps = dispatch => ({
-    onSubmit: (post) => dispatch(addPost(post)),
-    onLikeClick: (post) => dispatch(addLike(post))
+    onSubmit: (post) => {
+        addPost(post).catch((err) => {
+            // A less than fancy way to let
+            // the user know to log in
+            alert(err);
+        });
+    },
+    onLikeClick: (post, user) => addLike(post, user.uid),
+    watchForPostAdds: () => watchForPosts(dispatch),
+    watchForPostLikes: () => watchForLikes(dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
