@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import firebaseui from 'firebaseui';
 
-// Firebase Config
+// Firebase Config.  Normally, I would get this from a config file
 const config = {
     apiKey: "AIzaSyAjIq7ue80gYKNbmOHndduAN5D2Kmt1UtI",
     authDomain: "test-e3a8c.firebaseapp.com",
@@ -15,9 +15,9 @@ export const app = firebase.initializeApp(config);
 export const auth = app.auth();
 export const db = app.database();
 
-// FirebaseUI Config
+// FirebaseUI Config.  Normally, I would get this from a config file
 const uiConfig = {
-    signInSuccessUrl: 'http://localhost:8080/',
+    signInSuccessUrl: 'https://test-e3a8c.firebaseapp.com/',
     signInFlow: 'popup',
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID
