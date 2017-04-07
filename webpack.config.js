@@ -3,8 +3,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+// Are we in prod mode?
 const isProd = (process.env.NODE_ENV === 'production');
 
+// Config values that are shared between dev and prod
 const commonConfig = {
     module: {
         rules: [
@@ -41,6 +43,7 @@ const commonConfig = {
     ]
 }
 
+// Dev only config.  Includes the webpack dev server
 const devConfig = Object.assign({}, commonConfig, {
     entry: {
         app: [
@@ -60,6 +63,7 @@ const devConfig = Object.assign({}, commonConfig, {
     },
 });
 
+// Prod only config
 const prodConfig = Object.assign({}, commonConfig, {
     entry: {
         app: [

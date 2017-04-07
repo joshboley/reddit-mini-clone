@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, FormGroup, FormControl } from 'react-bootstrap';
 
+// The main nav component for the title bar
 export default class MainNav extends Component {
     render() {
         return (
@@ -11,13 +12,6 @@ export default class MainNav extends Component {
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
-                <Navbar.Collapse>
-                    <Navbar.Form pullRight>
-                        <FormGroup>
-                            <FormControl type="text" placeholder="Search" />
-                        </FormGroup>
-                    </Navbar.Form>
-                </Navbar.Collapse>
             </Navbar>
         );
     }
